@@ -1,0 +1,26 @@
+{
+  "configs": [
+    "mule-app-cicd.xml"
+  ],
+  "secureProperties": [],
+  "supportedJavaVersions": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:mule-app-cicd-project:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.6.16",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "db-config.yaml",
+        "log4j2.xml",
+        "mule-app-cicd.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}
