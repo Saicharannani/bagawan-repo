@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>09bb754b-64d7-4f61-9a1a-79e3edf235eb</groupId>
+  <artifactId>mule-app-cicd</artifactId>
+  <version>1.0.0</version>
+  <name>mule-app-cicd</name>
+  <properties>
+    <classifier>raml</classifier>
+    <main>mule-app-cicd.raml</main>
+    <status>published</status>
+    <originalFormatVersion>1.0</originalFormatVersion>
+    <apiVersion>v1</apiVersion>
+    <projectId>757b60db-c95f-45a0-b943-411885eab19d</projectId>
+    <branchId>master</branchId>
+    <commitId>5a062d15f9ffc383c4afa4706372b6ca6678e7e3</commitId>
+    <keywords/>
+    <type>rest-api</type>
+    <mainFile>mule-app-cicd.raml</mainFile>
+  </properties>
+  <repositories>
+    <repository>
+      <id>anypoint-exchange</id>
+      <url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
+    </repository>
+  </repositories>
+</project>
