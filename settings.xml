@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+	<activeProfiles>
+		<activeProfile>global-settings</activeProfile>
+		<activeProfile>standard-repositories</activeProfile>
+	</activeProfiles>
+	<profiles>
+		<profile>
+			<id>ds-DS-Exchange</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>ds-DS-Exchange</id>
+					<url>https://ds-211125577748.d.codeartifact.us-west-2.amazonaws.com/maven/DS-Exchange/</url>
+				</repository>
+			</repositories>
+		</profile>
+		<profile>
+			<id>global-settings</id>
+			<properties>
+				<master.org.name>CBL Solutions</master.org.name>
+				<company.abbr>ds-</company.abbr>
+				<!-- <company.abbr></company.abbr> -->
+				<my-organization-anypoint-orgid>09bb754b-64d7-4f61-9a1a-79e3edf235eb</my-organization-anypoint-orgid>
+				<api.businessGroup>${businessGroup}</api.businessGroup>
+				<!-- Org/Base Business group credential -->
+				<ap_id>cdafacac2b38470caeb8c5b28481b4b8</ap_id>
+				<ap_secret>E9C51ac8483340dABceaE2a5a1287aac</ap_secret>
+				<dlb.routing.prefix/>
+				<cloudhub.name>${company.abbr}${dlb.routing.prefix}${project.artifactId}-${ver}-${env}</cloudhub.name>
+				<cloudhub.domain>.us-e1.cloudhub.io</cloudhub.domain>
+				<hybrid.name>${company.abbr}${project.artifactId}-${env}</hybrid.name>
+				<mule.artifact>target/${project.artifactId}-${version}-mule-application.jar</mule.artifact>
+				<ch.workers>1</ch.workers>
+				<ch.workerType>MICRO</ch.workerType>
+				<ch.deploymentTimeout>1000000</ch.deploymentTimeout>
+				<ch.region>us-east-1</ch.region>
+				<rtf.cpuReserved>500m</rtf.cpuReserved>
+				<rtf.memoryReserved>500Mi</rtf.memoryReserved>
+				<instance.id>base</instance.id>
+				<!-- This is Clorox's local respository -->
+				<!-- <corporate-artifact-repository-url>https://my-nexus.com:8443/repository/c4e</corporate-artifact-repository-url> -->
+				<!-- CPS Info -->
+				<cps.configServerBaseUrl>https://ds-configuration-property-service.us-e1.cloudhub.io/config</cps.configServerBaseUrl>
+				<cps.insecure>false</cps.insecure>
+				<cps.clientId>cf71e737e2ef4f8699006e314c3ecb73</cps.clientId>
+				<cps.clientSecret>ba5d5DA8f1E34ac28BE622260398F0b4</cps.clientSecret>
+				<mule_cps_keystore_filename>https://ds-cps-container.us-e1.cloudhub.io/resource/ds-keys.jks</mule_cps_keystore_filename>
+				<mule_cps_keystore_password>changeit</mule_cps_keystore_password>
+				<mule_cps_key_password>changeit</mule_cps_key_password>
+				<mule_cps_keystore_client_id>b60836ef047c4cecb38b5ebb0504cd11</mule_cps_keystore_client_id>
+				<mule_cps_keystore_client_secret>FcCc7516756946Bc87858D2cEeb2D0E4</mule_cps_keystore_client_secret>
+				<mule.cps.retry.count>120</mule.cps.retry.count>
+				<v>snapshot</v>
+			</properties>
+		</profile>
+		<profile>
+			<id>no-environment</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value/>
+				</property>
+			</activation>
+			<properties>
+				<deploy.app.suffix>local</deploy.app.suffix>
+				<deploy.environment>LOCAL</deploy.environment>
+				<deploy.target/>
+				<deploy.targetType/>
+			</properties>
+		</profile>
+		<!--
+			These are the internal network deployment configurations, one for each environment, server, server-group or cluster supported for this organization
+		-->
+		<!-- Non PRD Profile -->
+		<profile>
+			<id>dev</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>dev</value>
+				</property>
+			</activation>
+			<properties>
+				<api.businessGroup>${businessGroup}</api.businessGroup>
+				<deploy.environment>DEV</deploy.environment>
+				<deploy.target>dev</deploy.target>
+				<deploy.businessGroup>${businessGroup}</deploy.businessGroup>
+				<deploy.targetType>serverGroup</deploy.targetType>
+				<sap.native.lib>so</sap.native.lib>
+				<sap.lib.scope>provided</sap.lib.scope>
+			</properties>
+		</profile>
+		<profile>
+			<id>qa</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>qa</value>
+				</property>
+			</activation>
+			<properties>
+				<api.businessGroup>${businessGroup}</api.businessGroup>
+				<deploy.environment>QA</deploy.environment>
+				<deploy.businessGroup>${businessGroup}</deploy.businessGroup>
+				<deploy.target>qa</deploy.target>
+				<deploy.targetType>cluster</deploy.targetType>
+				<sap.native.lib>so</sap.native.lib>
+				<sap.lib.scope>provided</sap.lib.scope>
+			</properties>
+		</profile>
+		<!-- PRD Profile -->
+		<profile>
+			<id>prd-api</id>
+			<activation>
+				<property>
+					<name>env</name>
+					<value>prd-api</value>
+				</property>
+			</activation>
+			<properties>
+				<api.businessGroup>${businessGroup}</api.businessGroup>
+				<deploy.app.suffix/>
+				<deploy.environment>PRD</deploy.environment>
+				<deploy.businessGroup>${businessGroup}</deploy.businessGroup>
+				<deploy.target>mule-api</deploy.target>
+				<deploy.targetType>cluster</deploy.targetType>
+				<sap.native.lib>so</sap.native.lib>
+				<sap.lib.scope>provided</sap.lib.scope>
+			</properties>
+		</profile>
+		<!--
+			These are the repositories that will be used to resolve dependencies
+		-->
+		<profile>
+			<id>standard-repositories</id>
+			<repositories>
+				<repository>
+					<id>Central</id>
+					<name>Central</name>
+					<url>https://repo1.maven.org/maven2</url>
+					<layout>default</layout>
+				</repository>
+				<repository>
+					<id>mulesoft-exchange-repository</id>
+					<name>Mulesoft Exchange Repository</name>
+					<url>https://maven.anypoint.mulesoft.com/api/v1/maven</url>
+					<layout>default</layout>
+				</repository>
+				<repository>
+					<id>mule</id>
+					<name>Mule Repository</name>
+					<url>https://repository.mulesoft.org/nexus/content/repositories/public/</url>
+				</repository>
+				<repository>
+					<id>releases-ee</id>
+					<name>Mule Release EE Repository</name>
+					<url>https://repository.mulesoft.org/nexus/content/repositories/releases-ee/</url>
+				</repository>
+				<repository>
+					<id>my-organization-exchange-repository</id>
+					<name>My OrgID's Mulesoft Exchange Repository</name>
+					<url>https://maven.anypoint.mulesoft.com/api/v2/organizations/${my-organization-anypoint-orgid}/maven</url>
+					<layout>default</layout>
+				</repository>
+				<repository>
+					<id>anypoint-exchange-v3</id>
+					<name>Anypoint Exchange V3</name>
+					<url>https://maven.anypoint.mulesoft.com/api/v2/organizations/${my-organization-anypoint-orgid}/maven</url>
+					<layout>default</layout>
+				</repository>
+				<repository>
+				<snapshots>
+				<enabled>false</enabled>
+				</snapshots>
+				<id>central</id>
+				<name>libs-releases</name>
+				<url>https://splunk.jfrog.io/splunk/libs-releases</url>
+				</repository>
+				<repository>
+				<snapshots/>
+				<id>snapshots</id>
+				<name>libs-snapshots</name>
+				<url>https://splunk.jfrog.io/splunk/libs-snapshots</url>
+				</repository>
+				<!-- uncomment to use the corporate artifact repository (don't forget to configure the url
+
+				<repository>
+					<id>corporate-artifact-repository</id>
+					<name>Corporate Artifact Repository</name>
+					<url>https://repo-001.corporate.com:8443/repository/</url>
+					<layout>default</layout>
+				</repository>
+			    -->
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>Central</id>
+					<url>https://repo1.maven.org/maven2</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+				</pluginRepository>
+				<pluginRepository>
+					<id>mulesoft-plugin-releases</id>
+					<name>mulesoft release repository</name>
+					<layout>default</layout>
+					<url>https://repository.mulesoft.org/releases/</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</pluginRepository>
+				<pluginRepository>
+					<id>my-organization-exchange-repository</id>
+					<name>My OrgID's Mulesoft Exchange Repository</name>
+					<url>https://maven.anypoint.mulesoft.com/api/v2/organizations/${my-organization-anypoint-orgid}/maven</url>
+					<layout>default</layout>
+				</pluginRepository>
+				<pluginRepository>
+					<id>anypoint-exchange-v3</id>
+					<name>Exchange Repository</name>
+					<url>https://maven.anypoint.mulesoft.com/api/v2/organizations/${my-organization-anypoint-orgid}/maven</url>
+					<layout>default</layout>
+				</pluginRepository>
+				<pluginRepository>
+				<snapshots>
+				<enabled>false</enabled>
+				</snapshots>
+				<id>central</id>
+				<name>plugins-releases</name>
+				<url>https://splunk.jfrog.io/splunk/plugins-releases</url>
+				</pluginRepository>
+				<pluginRepository>
+				<snapshots/>
+				<id>snapshots</id>
+				<name>plugins-releases</name>
+				<url>https://splunk.jfrog.io/splunk/plugins-releases</url>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+	</profiles>
+	<pluginGroups>
+		<pluginGroup>org.mule.tools</pluginGroup>
+	</pluginGroups>
+	<servers>
+		<!--configure the user credentials to access the repositories-->
+		<!-- <server>
+			<id>corporate-artifact-repository</id>
+			<username>me</username>
+			<password>password</password>
+		</server>
+		<server>
+			<id>my-organization-exchange-repository</id>
+			<username>${u}</username>
+			<password>${p}</password>
+		</server>
+		<server>
+			<id>mulesoft-exchange-repository</id>
+			<username>${u}</username>
+			<password>${p}</password>
+		</server> -->
+		<!-- <server>
+			<id>anypoint-platform</id>
+			<username>clorox.nexus</username>
+			<password>bdu834q5xgater9xbyt</password>
+		</server>
+		<server>
+			<id>mule</id>
+			<username>clorox.nexus</username>
+			<password>bdu834q5xgater9xbyt</password>
+		</server>
+		<server>
+			<id>releases-ee</id>
+			<username>clorox.nexus</username>
+			<password>bdu834q5xgater9xbyt</password>
+		</server>
+		<server>
+			<id>mulesoft-plugin-releases</id>
+			<username>clorox.nexus</username>
+			<password>bdu834q5xgater9xbyt</password>
+		</server>
+		<server>
+			<id>mulesoft-snapshots</id>
+			<username>clorox.nexus</username>
+			<password>bdu834q5xgater9xbyt</password>
+		</server>
+		<server>
+			<id>mulesoft-private</id>
+			<username>clorox.nexus</username>
+			<password>bdu834q5xgater9xbyt</password>
+		</server> -->
+		<!-- Connected App for CI/CD -->
+		<!-- <server>
+ 		    <id>anypoint-exchange-v3</id>
+ 		    <username>${u.client}</username>
+ 		    <password>${u.pass}</password>
+ 	    </server>
+		<server>
+			<id>my-organization-exchange-repository</id>
+			<username>${u.client}</username>
+ 		    <password>${u.pass}</password>
+		</server> -->
+		<server>
+			<id>anypoint-exchange-v3</id>
+			<username>~~~Client~~~</username>
+			<password>7793c8425cff41509b6bc263485843f4~?~e8D044EB46BA4E82917B3B48A712785B</password>
+		</server>
+		<server>
+			<id>my-organization-exchange-repository</id>
+			<username>~~~Client~~~</username>
+			<password>7793c8425cff41509b6bc263485843f4~?~e8D044EB46BA4E82917B3B48A712785B</password>
+		</server>
+		<server>
+			<id>ds-DS-Exchange</id>
+			<username>aws</username>
+			<password>eyJ2ZXIiOjEsImlzdSI6MTczMjExMzA1NCwiZW5jIjoiQTEyOEdDTSIsInRhZyI6IjhaV3NyX3I0LXdtZXhsaHQzQlp3MVEiLCJleHAiOjE3MzIxNTYyNTQsImFsZyI6IkExMjhHQ01LVyIsIml2IjoiQUYwaEFxYTRJZnQxYU1GbyJ9.p0VLKNo54MB50KrXUznQDA.59Wyd62MgZ7Bs5JR.Y3wCilSo73otgcEMK2JmjHmI0g40YpU5MMzpa3doytwVRFkM4Wj74CG03TD2RPsl1DcEvtz6Uc-5kcfTIWNyqc4TAkw9RhCp_V_3w-bHXxs7Pn3JS4Xw-C2fhnljyG7V0TvVSU1rVqD1HK7Ue7UVuU-rL1t9nUIWkwKkKsjQ7t2HW47wYek3VcUngRkK4JGQl5GjkRuL-CqhudOQIdK4kOC-NP7M5bUYpudsQiiBCxrBJg80BW1V72rVYc5y_FtlIoW707e5qgMi8Ruy_AX-8MlnNjWtfyy8cSTjwaHJlVfDoGTAcjTKI-776nfAHqJe2Rh7HFKTaKyIGHmwncCHip6sRLdcjGd7eg6lMqJS8KK5-cSxu82JqVGABFjJOfxEkdFLIT1lagihubHZiY1_rzv85gN1XPfwtJ1CZLkTmh9W81T9_SxBalUyEWTAAVxUiHqmlIeOoG1XUmepyIQJt07Y08HqM-3u_ZsCVjrRIf-j24m_eaPL47ZpOMo98tVy4aIM6pbXgrbVdpgP8FBD0zNjz4x6xPqkm94ZZNAyQEnmfubIwoEN1KzoUm6owhpFDN5Q1jBDR3yjUOh87suzHXysCtOoBSpCYW8b1XehxJInzkRDJq1gpxt3CJOFhF77Wurt0eSg8jXTOmGyO6DITS33IpEvAS9SXTuS42DVcsLd9VA_j51Q8NDNCizsHmDSvyN4xZ_gPRqINHjFkcPk41VxpCKLjetXnfeoPcPLKFmWlUC0uRaLKZkYmrV3fpm3M7QbEDc21eNgQ3jMmmgOHkqW700npwHVnazkPY53_Hg6SvvHtRQZV-DpU-_S49DyatY7_gu-AZDuvF79eYl2K10u_JZKsODUZdO5SHoK4D8JD6dFOJM2K5H8ddTrmvTZ6VyjsDtLSeVqCDCD31sjzkzhW1rys1yIqgtLdZAbxGTqdJqNY0-4SCuAkEHa7j9iQ3LtncKFYoLhY6T6.jkWNggn43G-T2oXghQYe4g</password>
+		</server>
+	</servers>
+	<!-- <proxies>
+		<proxy>
+			<id>proxyOne</id>
+			<active>false</active>
+			<protocol>http</protocol>
+			<host>165.225.34.41</host>
+			<port>80</port>
+			<nonProxyHosts>localhost|127.0.0.1|10.*.*.*</nonProxyHosts>
+		</proxy>
+		<proxy>
+			<id>proxyTwo</id>
+			<active>false</active>
+			<protocol>http</protocol>
+			<host>165.225.34.41</host>
+			<port>10204</port>
+			<nonProxyHosts>localhost|127.0.0.1|10.*.*.*</nonProxyHosts>
+		</proxy>
+	</proxies> -->
+</settings>
